@@ -11,12 +11,22 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  // Add this section to fix the Turbopack build error
-  experimental: {
-    turbo: {
-      rules: {
-        "*.mdx": ["@next/mdx"],
+  turbopack: {
+    rules: {
+      "*.mdx": {
+        loaders: [
+          {
+            loader: "@next/mdx/mdx-js-loader",
+            options: {
+              providerImportSource: "next-mdx-import-source-file",
+            },
+          },
+        ],
+        as: "*.tsx",
       },
+    },
+    resolveAlias: {
+      "next-mdx-import-source-file": "@vercel/turbopack-next/mdx-import-source",
     },
   },
 };
