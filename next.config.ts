@@ -11,6 +11,14 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  // Add this section to fix the Turbopack build error
+  experimental: {
+    turbo: {
+      rules: {
+        "*.mdx": ["@next/mdx"],
+      },
+    },
+  },
 };
 
 export default withMDX(nextConfig);
